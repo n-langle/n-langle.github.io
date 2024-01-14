@@ -1,0 +1,1402 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1,user-scalable=0">
+	<meta name="mobile-web-app-capable" content="yes">
+	<title>Voodoo | Playable Ad</title>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700;900&display=swap"
+		rel="stylesheet">
+	<style>
+		.game-svb,
+		.game-svb *,
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			font-size: 100%;
+			font: inherit;
+			vertical-align: baseline
+		}
+
+		body {
+			line-height: 1
+		}
+
+		ol,
+		ul {
+			list-style: none
+		}
+
+		body,
+		html {
+			background: #161616;
+			-webkit-font-smoothing: antialised;
+			height: 100vh;
+			overflow: hidden;
+			-webkit-tap-highlight-color: transparent;
+			width: 100%
+		}
+
+		button {
+			background: 0 0;
+			border: none;
+			cursor: pointer
+		}
+
+		button::-moz-focus-inner {
+			border: 0;
+			padding: 0
+		}
+
+		:focus {
+			outline: 0
+		}
+
+		a,
+		button {
+			color: inherit
+		}
+
+		a {
+			outline: 0
+		}
+
+		a:link,
+		a:visited {
+			text-decoration: none
+		}
+
+		a:hover {
+			text-decoration: none
+		}
+
+		svg {
+			fill: currentColor;
+			height: 100%;
+			pointer-events: none;
+			width: 100%
+		}
+		/*       
+		@font-face {
+			font-family: montserrat;
+			src: url(webfonts/montserrat/black.woff2) format('woff2'), url(webfonts/montserrat/black.woff) format('woff');
+			font-weight: 900;
+			font-style: normal
+		}
+
+		@font-face {
+			font-family: montserrat;
+			src: url(webfonts/montserrat/bold.woff2) format('woff2'), url(webfonts/montserrat/bold.woff) format('woff');
+			font-weight: 700;
+			font-style: normal
+		}
+
+		@font-face {
+			font-family: montserrat;
+			src: url(webfonts/montserrat/light.woff2) format('woff2'), url(webfonts/montserrat/light.woff) format('woff');
+			font-weight: 300;
+			font-style: normal
+		}
+
+		@font-face {
+			font-family: montserrat;
+			src: url(webfonts/montserrat/regular.woff2) format('woff2'), url(webfonts/montserrat/regular.woff) format('woff');
+			font-weight: 400;
+			font-style: normal
+		}
+
+		@font-face {
+			font-family: montserrat;
+			src: url(webfonts/montserrat/thin.woff2) format('woff2'), url(webfonts/montserrat/thin.woff) format('woff');
+			font-weight: 100;
+			font-style: normal
+		}
+		*/
+
+		.game-svb .btn {
+			box-sizing: border-box
+		}
+
+		.game-svb .btn__icon {
+			display: inline-block;
+			vertical-align: middle
+		}
+
+		.game-svb .btn__icon--cup {
+			height: 2.083333em
+		}
+
+		.game-svb .btn__icon--snake {
+			height: 3.041666em
+		}
+
+		.game-svb .btn__text {
+			font-weight: 300;
+			font-size: 1.020833em
+		}
+
+		.game-svb .btn svg {
+			height: 100%;
+			width: 100%
+		}
+
+		.game-svb .btn--alert {
+			position: relative
+		}
+
+		.game-svb .btn--alert::after {
+			background: red;
+			border-radius: 50%;
+			content: "!";
+			display: block;
+			font-weight: 700;
+			height: 1.5em;
+			line-height: 1.5em;
+			position: absolute;
+			right: -.1875em;
+			top: -.145833em;
+			width: 1.5em
+		}
+
+		.game-svb .btn--close {
+			height: 2.625em;
+			width: 2.625em
+		}
+
+		.game-svb .btn--close .btn__icon {
+			height: 1.25em
+		}
+
+		.game-svb .btn--cube {
+			background: #2cfcff;
+			border-radius: .625em;
+			color: #000;
+			padding-top: 100%;
+			position: relative;
+			width: 100%
+		}
+
+		.game-svb .btn--cube .btn__text {
+			display: block;
+			height: 100%;
+			left: 0;
+			line-height: 5.1875em;
+			position: absolute;
+			top: 0;
+			width: 100%
+		}
+
+		.game-svb .btn--round {
+			border: .1875em solid currentColor;
+			border-radius: 50%;
+			height: 3.958333em;
+			width: 3.958333em
+		}
+
+		.game-svb {
+			background: #161616;
+			color: #fff;
+			font-family: montserrat, arial;
+			font-size: 16px;
+			height: 100%;
+			margin: 0 auto;
+			max-width: 100%;
+			position: relative;
+			text-align: center;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			width: 56.25vh
+		}
+
+		.game-svb>div {
+			overflow: hidden;
+			padding-top: 177.77777%;
+			position: absolute;
+			top: 50%;
+			-webkit-transform: translateY(-50%);
+			-ms-transform: translateY(-50%);
+			transform: translateY(-50%);
+			width: 100%
+		}
+
+		.game-svb .best-score {
+			visibility: hidden
+		}
+
+		.game-svb .best-score--is-visible {
+			visibility: visible
+		}
+
+		.game-svb .best-score__icon {
+			display: inline-block;
+			height: 1.145833em;
+			margin-top: .2em;
+			vertical-align: text-top;
+			width: 1.333333em
+		}
+
+		.game-svb .best-score__text {
+			display: inline-block;
+			font-size: 2.020833em;
+			font-weight: 300;
+			margin-left: .1em;
+			vertical-align: text-top
+		}
+
+		.game-svb .cube-list {
+			margin: 2.291666em auto;
+			width: 90.277777%
+		}
+
+		.game-svb .cube-list li {
+			float: left;
+			padding: 3.897435%;
+			width: 25.538461%
+		}
+
+		.game-svb .cube-list .btn__text {
+			font-size: 1.5em;
+			font-weight: 400;
+			line-height: 3.4583333em
+		}
+
+		.game-svb .screen {
+			height: 100%;
+			left: 0;
+			overflow: hidden;
+			position: absolute;
+			top: 0;
+			width: 100%
+		}
+
+		.game-svb .screen__scroll {
+			height: 100%;
+			overflow: auto
+		}
+
+		.game-svb .screen .cta {
+			-webkit-animation: cta-pulse 1s infinite;
+			animation: cta-pulse 1s infinite;
+			font-size: 1.020833em;
+			font-weight: 100;
+			margin-bottom: 1em;
+			opacity: .5
+		}
+
+		@-webkit-keyframes cta-pulse {
+
+			0%,
+			100% {
+				opacity: .5
+			}
+
+			50% {
+				opacity: .8
+			}
+		}
+
+		@keyframes cta-pulse {
+
+			0%,
+			100% {
+				opacity: .5
+			}
+
+			50% {
+				opacity: .8
+			}
+		}
+
+		.game-svb .screen--toggle {
+			background: #000;
+			-webkit-transform: translateX(0);
+			-ms-transform: translateX(0);
+			transform: translateX(0);
+			-webkit-transform: translate3d(0, 0, 0);
+			transform: translate3d(0, 0, 0);
+			-webkit-transition: -webkit-transform .5s cubic-bezier(.075, .82, .165, 1);
+			transition: transform .5s cubic-bezier(.075, .82, .165, 1);
+			z-index: 200
+		}
+
+		.game-svb .screen--toggle--is-hidden {
+			-webkit-transform: translateX(-100%);
+			-ms-transform: translateX(-100%);
+			transform: translateX(-100%);
+			-webkit-transform: translate3d(-100%, 0, 0);
+			transform: translate3d(-100%, 0, 0)
+		}
+
+		.game-svb .screen--toggle .btn--close {
+			left: 0;
+			position: absolute;
+			top: 0
+		}
+
+		.game-svb .screen--start {
+			cursor: pointer;
+			z-index: 100
+		}
+
+		.game-svb .screen--start h1 {
+			font-size: 4.041666em;
+			font-weight: 100;
+			line-height: 1.154639em;
+			margin: .969072em 0 .34375em 0
+		}
+
+		.game-svb .screen--start h1 strong {
+			font-weight: 900
+		}
+
+		.game-svb .screen--start .best-score {
+			margin-bottom: 4.625em
+		}
+
+		.game-svb .screen--start .options {
+			visibility: hidden;
+			pointer-events: none;
+		}
+
+		.game-svb .screen--start .options li {
+			display: inline-block
+		}
+
+		.game-svb .screen--start .options li:nth-child(odd) {
+			margin-left: 3.333333em
+		}
+
+		.game-svb .screen--start .options li:first-child {
+			margin: 0 0 -.25em;
+			width: 100%
+		}
+
+		.game-svb .screen--game .game-score {
+			color: #fff;
+			cursor: pointer;
+			font-size: 1.5em;
+			position: absolute;
+			right: .5em;
+			text-align: right;
+			top: .5em
+		}
+
+		.game-svb .screen--game canvas {
+			height: 100%;
+			width: 100%
+		}
+
+		.game-svb .screen--end {
+			cursor: pointer;
+			display: none
+		}
+
+		.game-svb .screen--end .box {
+			background: #fff;
+			border-radius: .625em;
+			color: #000;
+			height: 10.75em;
+			margin: 5.125em auto 14em;
+			overflow: hidden;
+			width: 10.75em
+		}
+
+		.game-svb .screen--end .game-score {
+			font-size: 3.75em;
+			margin: .4em 0 .35em
+		}
+
+		.game-svb .screen--end .cta {
+			font-size: 1.5em
+		}
+	</style>
+</head>
+
+<body>
+	<div class="game-svb">
+		<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg"
+			xmlns:xlink="http://www.w3.org/1999/xlink">
+			<defs><svg viewBox="0 0 300 232" id="arrow-left" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M273.5 89.6H90.3L135 45.1c10.3-10.3 10.3-27.1 0-37.4-10.3-10.3-27.2-10.3-37.5 0L7.7 97.2C2.6 102.4 0 109.2 0 116c0 6.8 2.6 13.6 7.7 18.8l89.8 89.5c10.3 10.3 27.2 10.3 37.5 0s10.3-27.1 0-37.4l-44.7-44.5h183.2c14.6 0 26.5-11.9 26.5-26.4 0-14.5-11.9-26.4-26.5-26.4z" />
+					</svg><svg viewBox="0 0 64 64" id="crown" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M60 50.5v5H4v-5h56m4-4H0v13h64v-13zM32 11.9l12.6 19.7 3.4 5.3 3.4-5.3L60 18.2v21.3H4V18.2l8.6 13.5L16 37l3.4-5.3L32 11.9m32-7.4l-16 25-16-25-16 25-16-25v39h64v-39z" />
+					</svg><svg viewBox="0 0 82 100" id="cup" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M66 36v-2C81 34 82 0 82 0H0s1 34 16 34v2c0 12.4 9.1 22.8 21 24.7V72H23v12H12v16h58V84H59V72H45V60.7C56.9 58.8 66 48.4 66 36zM77.7 4c-1 10.5-4.4 26-11.7 26V4h11.7zM4.3 4H16v26C8.7 30 5.2 14.5 4.3 4z" />
+					</svg><svg viewBox="0 0 34 136" id="snake" xmlns="http://www.w3.org/2000/svg">
+					<circle cx="17" cy="17" r="17" />
+					<circle cx="17" cy="51" r="17" />
+					<circle cx="17" cy="85" r="17" />
+					<circle cx="17" cy="119" r="17" /></svg><svg viewBox="0 0 0 0" id="sprite"
+					xmlns="http://www.w3.org/2000/svg">
+					<defs><svg viewBox="0 0 300 232" id="earrow-left" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M273.5 89.6H90.3L135 45.1c10.3-10.3 10.3-27.1 0-37.4-10.3-10.3-27.2-10.3-37.5 0L7.7 97.2C2.6 102.4 0 109.2 0 116c0 6.8 2.6 13.6 7.7 18.8l89.8 89.5c10.3 10.3 27.2 10.3 37.5 0s10.3-27.1 0-37.4l-44.7-44.5h183.2c14.6 0 26.5-11.9 26.5-26.4 0-14.5-11.9-26.4-26.5-26.4z" />
+							</svg><svg viewBox="0 0 64 64" id="ecrown" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M60 50.5v5H4v-5h56m4-4H0v13h64v-13zM32 11.9l12.6 19.7 3.4 5.3 3.4-5.3L60 18.2v21.3H4V18.2l8.6 13.5L16 37l3.4-5.3L32 11.9m32-7.4l-16 25-16-25-16 25-16-25v39h64v-39z" />
+							</svg><svg viewBox="0 0 82 100" id="ecup" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M66 36v-2C81 34 82 0 82 0H0s1 34 16 34v2c0 12.4 9.1 22.8 21 24.7V72H23v12H12v16h58V84H59V72H45V60.7C56.9 58.8 66 48.4 66 36zM77.7 4c-1 10.5-4.4 26-11.7 26V4h11.7zM4.3 4H16v26C8.7 30 5.2 14.5 4.3 4z" />
+							</svg><svg viewBox="0 0 34 136" id="esnake" xmlns="http://www.w3.org/2000/svg">
+							<circle cx="17" cy="17" r="17" />
+							<circle cx="17" cy="51" r="17" />
+							<circle cx="17" cy="85" r="17" />
+							<circle cx="17" cy="119" r="17" /></svg><svg viewBox="0 0 0 0" id="esprite"
+							xmlns="http://www.w3.org/2000/svg">
+							<defs><svg viewBox="0 0 300 232" id="eearrow-left" xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="M273.5 89.6H90.3L135 45.1c10.3-10.3 10.3-27.1 0-37.4-10.3-10.3-27.2-10.3-37.5 0L7.7 97.2C2.6 102.4 0 109.2 0 116c0 6.8 2.6 13.6 7.7 18.8l89.8 89.5c10.3 10.3 27.2 10.3 37.5 0s10.3-27.1 0-37.4l-44.7-44.5h183.2c14.6 0 26.5-11.9 26.5-26.4 0-14.5-11.9-26.4-26.5-26.4z" />
+									</svg><svg viewBox="0 0 64 64" id="eecrown" xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="M60 50.5v5H4v-5h56m4-4H0v13h64v-13zM32 11.9l12.6 19.7 3.4 5.3 3.4-5.3L60 18.2v21.3H4V18.2l8.6 13.5L16 37l3.4-5.3L32 11.9m32-7.4l-16 25-16-25-16 25-16-25v39h64v-39z" />
+									</svg><svg viewBox="0 0 82 100" id="eecup" xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="M66 36v-2C81 34 82 0 82 0H0s1 34 16 34v2c0 12.4 9.1 22.8 21 24.7V72H23v12H12v16h58V84H59V72H45V60.7C56.9 58.8 66 48.4 66 36zM77.7 4c-1 10.5-4.4 26-11.7 26V4h11.7zM4.3 4H16v26C8.7 30 5.2 14.5 4.3 4z" />
+									</svg><svg viewBox="0 0 34 136" id="eesnake" xmlns="http://www.w3.org/2000/svg">
+									<circle cx="17" cy="17" r="17" />
+									<circle cx="17" cy="51" r="17" />
+									<circle cx="17" cy="85" r="17" />
+									<circle cx="17" cy="119" r="17" /></svg></defs>
+						</svg></defs>
+				</svg></defs>
+		</svg>
+		<div>
+			<div class="screen screen--start">
+				<h1>Snake<br><strong>VS</strong><br>Block</h1>
+				<p class="best-score"><span class="best-score__icon"><svg viewBox="0 0 64 64">
+							<use xlink:href="#crown"></use>
+						</svg> </span><span class="best-score__text">41</span></p>
+				<p class="cta">Toucher pour commencer</p>
+				<ul class="options">
+					<li><button class="btn btn--round"><span class="btn__text">Versus</span></button></li>
+					<li><button class="btn btn--round" data-toggle-screen=".screen--challenges"><span
+								class="btn__icon btn__icon--cup"><svg viewBox="0 0 82 100">
+									<use xlink:href="#cup"></use>
+								</svg></span></button></li>
+					<li><button class="btn btn--round btn--alert" data-toggle-screen=".screen--snakes"><span
+								class="btn__icon btn__icon--snake"><svg viewBox="0 0 34 136">
+									<use xlink:href="#snake"></use>
+								</svg></span></button></li>
+				</ul>
+			</div>
+			<div class="screen screen--challenges screen--toggle screen--toggle--is-hidden"><button
+					class="btn btn--close" data-toggle-screen=".screen--challenges"><span
+						class="btn__icon btn__icon--arrow-left"><svg viewBox="0 0 300 232">
+							<use xlink:href="#arrow-left"></use>
+						</svg></span></button>
+				<div class="screen__scroll">
+					<ul class="cube-list"></ul>
+				</div>
+			</div>
+			<div class="screen screen--snakes screen--toggle screen--toggle--is-hidden"><button class="btn btn--close"
+					data-toggle-screen=".screen--snakes"><span class="btn__icon btn__icon--arrow-left"><svg
+							viewBox="0 0 300 232">
+							<use xlink:href="#arrow-left"></use>
+						</svg></span></button>
+				<div class="screen__scroll">
+					<ul class="cube-list"></ul>
+				</div>
+			</div>
+			<div class="screen screen--game">
+				<p class="game-score"></p><canvas></canvas>
+			</div>
+			<div class="screen screen--end">
+				<div class="box">
+					<p class="game-score"></p>
+					<p class="best-score"><span class="best-score__icon"><svg viewBox="0 0 64 64">
+								<use xlink:href="#crown"></use>
+							</svg> </span><span class="best-score__text">41</span></p>
+				</div>
+				<p class="cta">Toucher pour continuer</p>
+			</div>
+		</div>
+	</div>
+	<script>
+		"function" != typeof Object.assign && Object.defineProperty(Object, "assign", {
+				value: function (t, i) {
+					"use strict";
+					if (null == t) throw new TypeError("Cannot convert undefined or null to object");
+					for (var e = Object(t), n = 1; n < arguments.length; n++) {
+						var s = arguments[n];
+						if (null != s)
+							for (var r in s) Object.prototype.hasOwnProperty.call(s, r) && (e[r] = s[r])
+					}
+					return e
+				},
+				writable: !0,
+				configurable: !0
+			}),
+			function () {
+				for (var r = 0, t = ["ms", "moz", "webkit", "o"], i = 0; i < t.length && !window.requestAnimationFrame; ++i)
+					window.requestAnimationFrame = window[t[i] + "RequestAnimationFrame"], window.cancelAnimationFrame =
+					window[t[i] + "CancelAnimationFrame"] || window[t[i] + "CancelRequestAnimationFrame"];
+				window.requestAnimationFrame || (window.requestAnimationFrame = function (t, i) {
+					var e = (new Date).getTime(),
+						n = Math.max(0, 16 - (e - r)),
+						s = window.setTimeout(function () {
+							t(e + n)
+						}, n);
+					return r = e + n, s
+				}), window.cancelAnimationFrame || (window.cancelAnimationFrame = function (t) {
+					clearTimeout(t)
+				})
+			}(), window.App = {
+				class: {},
+				config: {
+					colors: ["#2cfcff", "#2cff32", "#fffb2c", "#ff2c2c"],
+					height: 640,
+					gutter: 2.5,
+					pixelDensity: 2,
+					width: 360
+				},
+				init: function (t) {
+					var e = this,
+						n = $(t),
+						s = n.find(".btn[data-toggle-screen]"),
+						r = n.find(".screen--start"),
+						i = n.find(".screen--game"),
+						o = n.find(".screen--end"),
+						h = i.find("canvas").get(0),
+						a = n.find(".game-score"),
+						c = n.find(".best-score"),
+						l = n.find(".cube-list"),
+						u = 0,
+						f = new App.class.Game(h, {
+							onGameOver: function (t) {
+								u = Math.max(t, u), a.eq(0).html(""), c.addClass("best-score--is-visible").find(
+									".best-score__text").html(u), o.css("display", "block")
+							},
+							onScoreChange: function (t) {
+								a.html(t)
+							}
+						}),
+						p = !1;
+
+					function d() {
+						n.css("fontSize", n.width() / 360 * 16 + "px")
+					}
+
+					function g(t) {
+						var i;
+						"touchstart" === t.type && e.fullscreen(n.get(0)), p || (p = !0, i = t.type, s.on(i, function (
+						t) {
+							t.stopPropagation(), $($(t.currentTarget).attr("data-toggle-screen")).toggleClass(
+								"screen--toggle--is-hidden")
+						}), r.on(i, function () {
+							r.css("display", "none"), f.start()
+						}), o.on(i, function () {
+							o.css("display", "none"), r.css("display", "block"), f.stop().init()
+						}), f.setEvents(t.type))
+					}
+					window.addEventListener("resize", function () {
+						d()
+					}), n.on("touchstart", g).on("click", g), l.each(function (t, i) {
+						var e;
+						for (e = 0; e < 50; e++) i.insertAdjacentHTML("beforeend",
+							'<li><button class="btn btn--cube" style="background:' + App.utils.getColor(e +
+							1) + '"><span class="btn__text">' + (e + 1) + "</span></button></li>")
+					}), d(), h.width = App.getWidth(), h.height = App.getHeight(), f.init()
+				},
+				getWidth: function () {
+					return this.config.width * this.config.pixelDensity
+				},
+				getInnerWidth: function () {
+					return this.getWidth() - this.config.gutter * this.config.pixelDensity * 2
+				},
+				getGridSize: function () {
+					return this.getInnerWidth() / 5
+				},
+				getHeight: function () {
+					return this.config.height * this.config.pixelDensity
+				},
+				fullscreen: function (t) {
+					t.requestFullscreen ? t.requestFullscreen() : t.webkitRequestFullscreen ? t
+					.webkitRequestFullscreen() : t.mozRequestFullScreen ? t.mozRequestFullScreen() : t
+						.msRequestFullscreen && t.msRequestFullscreen()
+				}
+			}, App.utils = function (l) {
+				var t = {};
+
+				function h(t, i, e) {
+					return i = i || 0, e = e || 1, Math.round((Math.random() * (t - i) + i) / e) * e
+				}
+
+				function u(t) {
+					var i = parseInt(t.replace("#", ""), 16);
+					return {
+						r: i >> 16 & 255,
+						g: i >> 8 & 255,
+						b: 255 & i
+					}
+				}
+
+				function f(t) {
+					var i = t.toString(16);
+					return 1 == i.length ? "0" + i : i
+				}
+				return t.getRandom = h, t.getUniqueValues = function (t, i, e, n, s) {
+					Array.isArray(t) || (s = n, n = e, e = i, i = t, t = []);
+					var r = h(e, i),
+						o = 0;
+					for (s = s || 2e3; t.length != n && o < s;) r = h(e, i), -1 === t.indexOf(r) && t.push(r), o++;
+					for (; t.length != n;) t.push(h(e, i));
+					return t
+				}, t.getColor = function (t) {
+					var i, e, n, s, r, o = l.config.colors,
+						h = o.length - 1,
+						a = Math.min(Math.floor(t / 17), h),
+						c = Math.min(Math.ceil(t / 17), h);
+					return e = u(o[a]), n = u(o[c]), s = t / 17 % 1, "#" + f((i = {
+						r: (r = function (t, i) {
+							return Math.round((e = t) + (i - e) * s);
+							var e
+						})(e.r, n.r),
+						g: r(e.g, n.g),
+						b: r(e.b, n.b)
+					}).r) + f(i.g) + f(i.b)
+				}, t.hexToRgb = u, t
+			}(App),
+			function () {
+				function s(t, i) {
+					return new s.prototype.init(t, i)
+				}
+
+				function r(t) {
+					return t.replace(/(\-\w)/g, function (t) {
+						return t[1].toUpperCase()
+					})
+				}(s.prototype = {
+					init: function (t, i) {
+						var e;
+						return i = i || document, e = "string" == typeof t ? [].slice.call(i.querySelectorAll(t)) : t
+							.tagName ? [t] : Array.isArray(t) ? t : [], this.collection = e, this
+					},
+					find: function (e) {
+						var n = [];
+						return this.each(function (t, i) {
+							n = n.concat(s(e, i).collection)
+						}), s(n)
+					},
+					each: function (t) {
+						for (i = 0; i < this.collection.length; i++) t(i, this.collection[i]);
+						return this
+					},
+					on: function (e, n) {
+						return this.each(function (t, i) {
+							i.addEventListener(e, n, !1)
+						})
+					},
+					off: function (e, n) {
+						return this.each(function (t, i) {
+							i.removeEventListener(e, n)
+						})
+					},
+					addClass: function (e) {
+						return this.each(function (t, i) {
+							i.classList.add(e.split(" "))
+						})
+					},
+					removeClass: function (e) {
+						return this.each(function (t, i) {
+							i.classList.remove(e.split(" "))
+						})
+					},
+					toggleClass: function (e) {
+						return this.each(function (t, i) {
+							i.classList.contains(e) ? i.classList.remove(e) : i.classList.add(e)
+						})
+					},
+					attr: function (e, n) {
+						var s;
+						if (e && "string" != typeof e) this.each(function (t, i) {
+							for (s in e) i.setAttribute[s] = e[s]
+						});
+						else {
+							if (!n) return this.collection[0].getAttribute(e);
+							this.each(function (t, i) {
+								i.setAttribute[e] = n
+							})
+						}
+						return this
+					},
+					eq: function (t) {
+						return s(this.collection[t])
+					},
+					get: function (t) {
+						return this.collection[t]
+					},
+					css: function (e, n) {
+						var s;
+						if (e && "string" != typeof e) this.each(function (t, i) {
+							for (s in e) i.style[r(s)] = e[s]
+						});
+						else {
+							if (!n) return this.collection[0].style[r(e)];
+							this.each(function (t, i) {
+								i.style[r(e)] = n
+							})
+						}
+						return this
+					},
+					html: function (e) {
+						return this.each(function (t, i) {
+							i.innerHTML = e
+						})
+					},
+					width: function () {
+						return this.collection[0].offsetWidth
+					}
+				}).init.prototype = s.prototype, window.$ = s
+			}(),
+			function (t) {
+				var i = App.class.Vector2 = function (t, i) {
+					this.x = t || 0, this.y = void 0 !== i ? i : this.x
+				};
+				i.prototype = {
+					constuctor: i,
+					set: function (t, i) {
+						return this.x = t, this.y = i, this
+					},
+					add: function (t) {
+						return this.x += t.x, this.y += t.y, this
+					},
+					addScalar: function (t) {
+						return this.x += t, this.y += t, this
+					},
+					subtract: function (t) {
+						return this.x -= t.x, this.y -= t.y, this
+					},
+					subtractScalar: function (t) {
+						return this.x -= t, this.y -= t, this
+					},
+					multiply: function (t) {
+						return this.x *= t.x, this.y *= t.y, this
+					},
+					multiplyScalar: function (t) {
+						return this.x *= t, this.y *= t, this
+					},
+					divide: function (t) {
+						return this.x /= t.x, this.y /= t.y, this
+					},
+					divideScalar: function (t) {
+						return this.x /= t, this.y /= t, this
+					},
+					magnitude: function () {
+						return Math.sqrt(this.x * this.x + this.y * this.y)
+					},
+					normalize: function () {
+						return this.divideScalar(this.magnitude() || 1)
+					},
+					reverse: function () {
+						return this.x = -this.x, this.y = -this.y, this
+					},
+					copy: function (t) {
+						return this.set(t.x, t.y)
+					},
+					clone: function () {
+						return new i(this.x, this.y)
+					}
+				}
+			}(), App.class.Abstract = function (t) {
+				var i = App.class.Vector2;
+
+				function e() {
+					this._position = new i, this._width = 0, this._height = 0
+				}
+				return e.prototype = {
+					getHeight: function () {
+						return this._height
+					},
+					setHeight: function (t) {
+						return this._height = t, this
+					},
+					getWidth: function () {
+						return this._width
+					},
+					setWidth: function () {
+						return this._width = value, this
+					},
+					getPosition: function (t) {
+						var i = this._position;
+						return t ? i.clone() : i
+					},
+					getBoundingBox: function () {
+						return {
+							x1: this._position.x,
+							y1: this._position.y,
+							x2: this._position.x + this._width,
+							y2: this._position.y + this._height
+						}
+					},
+					getCenter: function () {
+						return new i(this._width / 2, this._height / 2).add(this._position)
+					},
+					render: function () {
+						return this
+					},
+					update: function () {
+						return this
+					}
+				}, e
+			}(), App.class.AbstractValue = function (t) {
+				function i() {
+					this._value = 0
+				}
+				return i.prototype = {
+					setValue: function (t) {
+						return this._value = t, this
+					},
+					getValue: function () {
+						return this._value
+					},
+					addValue: function (t) {
+						return this._value += t, this
+					},
+					subtractValue: function (t) {
+						return this._value -= t, this
+					}
+				}, i
+			}(App), App.class.Elements = function (i) {
+				i.class.Vector2;
+				var t = i.class.Abstract,
+					n = [];
+
+				function e() {
+					t.call(this), this._collisition = {}, n.push(this)
+				}
+				return Object.assign(e.prototype, t.prototype, {
+					getCollisionDirection: function () {
+						return this._collision
+					},
+					isColliding: function (t) {
+						var i = this.getBoundingBox(),
+							e = i.x1 <= t.x2 && i.x2 >= t.x1 && i.y1 <= t.y2 && i.y2 >= t.y1;
+						return e ? i.x1 < t.x1 && t.x2 < i.x2 ? this._collision = "bottom" : t.x2 >= i.x1 && t
+							.x2 < i.x2 ? this._collision = "left" : this._collision = "right" : this._collision =
+							null, e
+					},
+					stopRender: function () {
+						var t = n.indexOf(this);
+						return -1 < t && n.splice(t, 1), this
+					},
+					update: function (t) {
+						return this._position.y += t, this._position.y > i.config.height * i.config
+							.pixelDensity && this.stopRender(), this
+					}
+				}), e.render = function (t) {
+					var i;
+					for (i = 0; i < n.length; i++) n[i].render(t);
+					return this
+				}, e.update = function (t) {
+					var i, e = n.length;
+					for (i = 0; i < e; i++) n[i].update(t), e != n.length && (e = n.length, i--);
+					return this
+				}, e.getCollider = function (t) {
+					var i;
+					for (i = 0; i < n.length; i++)
+						if (n[i].isColliding(t)) return n[i];
+					return !1
+				}, e.clearInstances = function () {
+					return n = [], this
+				}, e
+			}(App), App.class.Particle = function (t) {
+				var r = t.class.Vector2,
+					i = t.utils.getRandom;
+
+				function e(t) {
+					Object.assign(this, {
+						radius: i(4, 1),
+						rgb: [255, 255, 255],
+						alive: !0
+					}, t)
+				}
+				return e.prototype = {
+					isAlive: function () {
+						return this.alive
+					},
+					update: function (t, i, e) {
+						var n = 0,
+							s = e - this.birth;
+						return s < this.lifeTime ? (n = s < this.lifeTime / 2 ? s / (this.lifeTime / 2) : 1 - (e - (
+								this.birth + this.lifeTime / 2)) / (this.lifeTime / 2), this.fillStyle = "rgba(" +
+							this.rgb[0] + "," + this.rgb[1] + "," + this.rgb[2] + "," + n + ")", this.start.y +=
+							t, this.position = this.start.clone().add(new r(Math.sin(this.angle * Math.PI / 180) *
+								s / 1e3 * this.speed, Math.cos(this.angle * Math.PI / 180) * s / 1e3 * this
+								.speed))) : this.alive = !1, this
+					},
+					render: function (t) {
+						return t.fillStyle = this.fillStyle, t.beginPath(), t.arc(this.position.x, this.position.y,
+							this.radius, 0, 2 * Math.PI), t.fill(), t.closePath(), this
+					}
+				}, e
+			}(App), App.class.ParticlesEmitter = function (t) {
+				var s = t.class.Vector2,
+					i = t.class.Particle,
+					r = t.utils.getRandom;
+
+				function e(t) {
+					Object.assign(this, {
+						height: 18,
+						width: 18,
+						position: new s(185, 150),
+						angle: [0, 360],
+						scale: 1,
+						speed: [300, 500],
+						opacity: {
+							0: 0,
+							50: 100,
+							100: 0
+						},
+						lifeTime: 500,
+						canvas: null,
+						Particle: i,
+						drawEmitter: !1,
+						emitParticle: !1
+					}, t), this.particles = []
+				}
+
+				function o(t, i) {
+					return Array.isArray(t) ? r(t[1], t[2], i) : t
+				}
+				return e.prototype = {
+					setColor: function (t) {
+						return this.rgb = [t.r, t.g, t.b], this
+					},
+					emit: function (t, i) {
+						var e, n = this.getBoundingBox();
+						for (e = 0; e < i; e++) this.particles.push(new this.Particle({
+							start: new s(r(n.x2, n.x1), r(n.y2, n.y1)),
+							scale: o(this.scale),
+							angle: o(this.angle),
+							speed: o(this.speed),
+							rgb: this.rgb,
+							birth: t,
+							lifeTime: this.lifeTime
+						}));
+						return this
+					},
+					getBoundingBox: function () {
+						var t = this.position,
+							i = this.height / 2,
+							e = this.width / 2;
+						return {
+							x1: t.x - e,
+							y1: t.y - i,
+							x2: t.x + e,
+							y2: t.y + i
+						}
+					},
+					update: function (t, i, e) {
+						var n, s = this.particles;
+						for (this.emitParticle && this.emit(e), n = 0; n < s.length; n++) s[n].update(t, i, e), s[n]
+							.isAlive() || (s.splice(n, 1), n--);
+						return this
+					},
+					render: function (t) {
+						var i, e, n = this.particles;
+						this.context;
+						for (this.drawEmitter && (i = this.getBoundingBox(), t.strokeStyle =
+								"rgba(255, 255, 255, .5)", t.lineWidth = 1, t.strokeRect(i.x1, i.y1, this.width, this
+									.height)), e = 0; e < n.length; e++) n[e].render(t);
+						return this
+					}
+				}, e
+			}(App), App.class.Block = function (r) {
+				r.class.Vector2;
+				var o = r.class.Elements,
+					t = r.class.AbstractValue,
+					h = r.utils.getColor,
+					i = r.utils.hexToRgb,
+					a = r.config;
+
+				function e(t, i, e) {
+					o.call(this);
+					var n = a.pixelDensity,
+						s = r.getGridSize();
+					this.setValue(e || 1), this._position.set(t * s + a.gutter * n, i * s), this._height = s, this._width = s,
+						this._fillStyle = h(this.getValue()), this._borderRadius = 10 * n, this._padding = 1 * n, this._font =
+						25 * n + "px montserrat"
+				}
+				return Object.assign(e.prototype, o.prototype, t.prototype, {
+					isAlive: function () {
+						return 1 <= this.getValue()
+					},
+					getRgbColor: function () {
+						return i(this._fillStyle)
+					},
+					_drawBox: function (t, i, e, n, s) {
+						var r = this._borderRadius;
+						return t.beginPath(), t.fillStyle = this._fillStyle, t.moveTo(i + r, e), t.arcTo(i + n, e,
+								i + n, e + s, r), t.arcTo(i + n, e + s, i, e + s, r), t.arcTo(i, e + s, i, e, r),
+							t.arcTo(i, e, i + n, e, r), t.fill(), t.closePath(), this
+					},
+					_drawText: function (t, i, e) {
+						return t.fillStyle = "#161616", t.font = this._font, t.textAlign = "center", t
+							.textBaseline = "middle", t.fillText(this.getValue(), i, e), this
+					},
+					render: function (t) {
+						var i = this._position.x + this._padding,
+							e = this._position.y + this._padding,
+							n = this._width - 2 * this._padding,
+							s = this._height - 2 * this._padding;
+						return this._drawBox(t, i, e, n, s)._drawText(t, i + n / 2, e + s / 2), this
+					}
+				}), e
+			}(App), App.class.BlockSpecial = function (t) {
+				t.class.Vector2;
+				var s = t.class.Block,
+					r = t.config;
+
+				function e(t, i, e) {
+					s.call(this, t, i, e);
+					var n = r.pixelDensity;
+					this._starOuterRadius = 12 * n, this._starInnerRadius = 6 * n, this._starFillStyle = "#161616"
+				}
+				return Object.assign(e.prototype, s.prototype, {
+					_drawStar: function (t, e, n) {
+						var s = e,
+							r = n,
+							o = Math.PI / 2 * 3,
+							h = this._starOuterRadius,
+							a = this._starInnerRadius,
+							c = Math.PI / 5;
+						for (t.beginPath(), t.moveTo(e, n - h), i = 0; i < 5; i++) s = e + Math.cos(o) * h, r =
+							n + Math.sin(o) * h, t.lineTo(s, r), o += c, s = e + Math.cos(o) * a, r = n + Math
+							.sin(o) * a, t.lineTo(s, r), o += c;
+						return t.lineTo(e, n - h), t.closePath(), t.fillStyle = this._starFillStyle, t.fill(),
+							this
+					},
+					render: function (t) {
+						var i = this._position.x + this._padding,
+							e = this._position.y + this._padding,
+							n = this._width - 2 * this._padding,
+							s = this._height - 2 * this._padding,
+							r = i + n / 2,
+							o = e + s / 2;
+						return this._drawBox(t, i, e, n, s)._drawStar(t, r, o + n / 6)._drawText(t, r, o - n / 6),
+							this
+					}
+				}), e
+			}(App), App.class.Item = function (r) {
+				var o = r.class.Elements,
+					h = r.class.AbstractValue,
+					a = r.config;
+
+				function t(t, i, e) {
+					o.call(this), h.call(this);
+					var n = a.pixelDensity,
+						s = r.getGridSize();
+					this._height = 18 * n, this._width = 18 * n, this._radius = 9 * n, this._fillStyle = "#ffdc09", this
+						._font = 14 * n + "px montserrat", this._fontShiftY = 15 * n, this._position.set(t * s + s / 2 - this
+							._width / 2 + a.gutter * n, i * s + s / 2 - this._height / 2), this.setValue(e || 1)
+				}
+				return Object.assign(t.prototype, o.prototype, h.prototype, {
+					render: function (t) {
+						var i = this._position.x + this._radius,
+							e = this._position.y + this._radius;
+						return t.beginPath(), t.fillStyle = this._fillStyle, t.arc(i, e, this._radius, 0, 2 * Math
+								.PI), t.fill(), t.fillStyle = "#ffffff", t.font = this._font, t.textAlign =
+							"center", t.textBaseline = "alphabetic", t.fillText(this.getValue(), i, e - this
+								._fontShiftY), this
+					}
+				}), t
+			}(App), App.class.Wall = function (r) {
+				var o = r.class.Elements,
+					h = r.config;
+
+				function t(t, i, e) {
+					o.call(this);
+					var n = h.pixelDensity,
+						s = r.getGridSize();
+					this._width = 4 * n, this._height = s * e, this._position.set(t * s + h.gutter * n - this._width / 2, i *
+						s), this._borderRadius = 2 * n
+				}
+				return Object.assign(t.prototype, o.prototype, {
+					render: function (t) {
+						var i = this._position.x,
+							e = this._position.y,
+							n = this._width,
+							s = this._height,
+							r = this._borderRadius;
+						return t.beginPath(), t.fillStyle = "#ffffff", t.moveTo(i + r, e), t.arcTo(i + n, e, i +
+								n, e + s, r), t.arcTo(i + n, e + s, i, e + s, r), t.arcTo(i, e + s, i, e, r), t
+							.arcTo(i, e, i + n, e, r), t.fill(), t.closePath(), this
+					}
+				}), t
+			}(App), App.class.LevelGenerator = function () {
+				var e, n, s = App.class.Block,
+					r = App.class.BlockSpecial,
+					o = App.class.Wall,
+					h = App.class.Item,
+					a = App.utils.getRandom,
+					c = App.utils.getUniqueValues;
+
+				function t() {
+					var t = App.getGridSize();
+					this._distance = 0, this._distanceToGenerate = 3 * t, this._distanceToLine = 15 * t, this._count = 1, this
+						._value = 4, this._blockSpecialValues = ["25", "25", "25", "30", "30", "35"]
+				}
+				return t.prototype = {
+					_getBlockMinValue: function () {
+						return Math.max(this._value - this._value / 4, 1)
+					},
+					_getBlockMaxValue: function () {
+						var t = Math.max(this._value, 3);
+						return Math.min(t + t / 2, 50)
+					},
+					_getBlockValue: function () {
+						return a(this._getBlockMaxValue(), this._getBlockMinValue())
+					},
+					_getBlockSpecialValue: function () {
+						return this._blockSpecialValues[a(this._blockSpecialValues.length - 1)]
+					},
+					_line: function () {
+						var t, i = c(this._getBlockMinValue(), this._getBlockMaxValue(), 5),
+							e = 60 <= a(100),
+							n = a(4);
+						for (t = 0; t < i.length; t++) e && t === n ? new r(t, -3, this._getBlockSpecialValue()) :
+							new s(t, -3, i[t]);
+						return this
+					},
+					_lineWithWall: function () {
+						var t, i = c(1, 4, a(3, 1));
+						for (this._line(), t = 0; t < i.length; t++) new o(i[t], -2, a(2, 1));
+						return this
+					},
+					_generate: function () {
+						var t, i = e[a(e.length - 1)];
+						for (t = 0; t < i.length; t++) 0 !== i[t] && n[i[t]].call(this, t % 5, Math.floor(t / 5) - 3)
+					},
+					setRefValue: function (t) {
+						return this._value = t, this
+					},
+					init: function (t) {
+						this.setRefValue(t), this._line()
+					},
+					update: function (t) {
+						this._distance += t, this._distance >= this._distanceToLine ? (this._distance = 0, this
+							._count = 1, this[["_line", "_lineWithWall"][a(1)]]()) : 1 <= this._distance / (this
+							._distanceToGenerate * this._count) && (this._count++, this._generate())
+					}
+				}, n = {
+					1: function (t, i) {
+						new s(t, i, this._getBlockValue())
+					},
+					2: function (t, i) {
+						new h(t, i, a(5, 1))
+					},
+					3: function (t, i) {
+						new o(t, i, 1)
+					},
+					4: function (t, i) {
+						new o(t, i, 2)
+					},
+					5: function (t, i) {
+						new r(t, i, 25)
+					},
+					32: function (t, i) {
+						new o(t, i, 1), new h(t, i, a(5, 1))
+					},
+					42: function (t, i) {
+						new o(t, i, 2), new h(t, i, a(5, 1))
+					}
+				}, e = [
+					[0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2],
+					[0, 1, 0, 2, 0, 0, 42, 0, 0, 1, 2, 0, 1, 0, 0],
+					[0, 0, 0, 1, 1, 1, 2, 3, 3, 1, 0, 0, 1, 0, 0],
+					[0, 1, 0, 0, 1, 2, 4, 4, 1, 2, 0, 0, 0, 0, 0],
+					[0, 0, 1, 1, 0, 0, 2, 0, 4, 3, 1, 0, 0, 0, 2],
+					[1, 0, 0, 1, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0],
+					[2, 0, 0, 1, 0, 0, 3, 2, 0, 0, 0, 0, 0, 0, 0],
+					[0, 0, 0, 1, 0, 0, 1, 2, 0, 32, 0, 0, 0, 0, 0],
+					[5, 1, 0, 1, 0, 2, 3, 2, 4, 0, 0, 0, 0, 0, 0],
+					[0, 1, 2, 1, 0, 2, 0, 0, 2, 1, 0, 0, 0, 0, 0],
+					[1, 0, 4, 1, 0, 2, 0, 0, 2, 1, 0, 0, 1, 0, 0],
+					[0, 0, 2, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 2, 0]
+				], t
+			}(), App.class.Snake = function (r) {
+				var h = r.class.Vector2,
+					o = r.class.Abstract,
+					a = r.class.AbstractValue,
+					t = r.utils.hexToRgb,
+					c = r.config;
+
+				function i() {
+					o.call(this), a.call(this);
+					var t, i = c.width,
+						e = c.height,
+						n = c.pixelDensity,
+						s = r.class.Vector2;
+					for (this._isBerserker = !1, this._radius = 9 * n, this._position = new s(i / 2 * n - this._radius,
+							.60625 * e * n - this._radius), this._height = 18 * n, this._width = 18 * n, this._fillStyle =
+						"#ffdc09", this._font = 14 * n + "px montserrat", this._fontShiftY = 15 * n, this._path = [], this
+						._pathLength = 300, t = 0; t < this._pathLength; t++) this._path[t] = this.getPosition(!0);
+					this.setValue(4)
+				}
+				return Object.assign(i.prototype, o.prototype, a.prototype, {
+					_getSnakePartsPositions: function () {
+						var t, i = 2 * this._radius,
+							e = new h,
+							n = this.getPosition(!0),
+							s = [n],
+							r = 0,
+							o = this.getValue();
+						for (t = 0; t < o; t++) {
+							for (; r < this._path.length && e.copy(this._path[r]).subtract(n).magnitude() < i;)
+								r++;
+							this._path[r] && (n = this._path[r].clone().subtract(n).normalize().multiplyScalar(i)
+								.add(n), s.push(n))
+						}
+						return s
+					},
+					_drawPart: function (t, i) {
+						return t.beginPath(), t.fillStyle = "#ffdc09", t.arc(i.x + this._radius, i.y + this
+							._radius, this._radius, 0, 2 * Math.PI), t.fill(), this
+					},
+					isAlive: function () {
+						return 0 <= this.getValue()
+					},
+					isBerseker: function () {
+						return this._isBerseker
+					},
+					setBersekerMode: function (t) {
+						return this._isBerseker = t, this
+					},
+					getRgbColor: function () {
+						return t(this._fillStyle)
+					},
+					update: function (t) {
+						var i;
+						for (this._path.unshift(this.getPosition(!0)), this._path.splice(this._pathLength, 1), i =
+							0; i < this._pathLength; i++) this._path[i].y += t;
+						return this
+					},
+					render: function (t) {
+						if (this.isAlive()) {
+							var i, e = this._getSnakePartsPositions();
+							for (i = 0; i < e.length; i++) this._drawPart(t, e[i]);
+							return t.fillStyle = "#ffffff", t.font = this._font, t.textAlign = "center", t
+								.textBaseline = "alphabetic", t.fillText(this.getValue(), e[0].x + this._radius,
+									e[0].y + this._radius - this._fontShiftY), this
+						}
+					}
+				}), i
+			}(App), App.class.Game = function (e) {
+				var h = e.class.Elements,
+					n = e.class.Vector2,
+					t = e.class.Snake,
+					a = e.class.Item,
+					i = (e.class.BlockSpecial, e.class.LevelGenerator),
+					s = e.class.ParticlesEmitter,
+					r = (e.config, function () {});
+
+				function o(t, i) {
+					this._raf = null, this._fps = 1e3 / 60, this._canvas = t, this._ctx = t.getContext("2d"), this._appWidth =
+						e.getWidth(), this._appHeight = e.getHeight(), this._canvasPosition = t.getBoundingClientRect(), this
+						._emitter = new s({
+							rgb: [255, 255, 255]
+						}), this._onGameOver = i.onGameOver || r, this._onScoreChange = i.onScoreChange || r, this
+						._pointerStart = new n, this._pointerMove = new n, this._snakePosOnStart = new n, this
+						._onPointerMove = function (t) {
+							t = c(t), this._pointerMove.x = t.clientX
+						}.bind(this), this._onPointerDown = function (t) {
+							t = c(t), this._pointerStart.x = t.clientX, this._pointerMove.x = t.clientX, this._snakePosOnStart
+								.x = this._snake.getPosition().x, this._canvas.addEventListener(this._events.pointerMove, this
+									._onPointerMove)
+						}.bind(this), this._onPointerUp = function (t) {
+							t = c(t), this._pointerStart.x = this._pointerMove.x, this._snakePosOnStart.x = this._snake
+								.getPosition().x, this._canvas.removeEventListener(this._events.pointerMove, this
+									._onPointerMove)
+						}.bind(this)
+				}
+
+				function c(t) {
+					return t.touches ? t.touches[0] : t
+				}
+				return o.prototype = {
+					init: function () {
+						return this._snake = new t, this._levelGenerator = new i, this._ticksAmount = 0, this._score =
+							0, this._snakePosOnStart.copy(this._snake.getPosition()), this._levelGenerator.init(this
+								._snake.getValue()), this._render(), this
+					},
+					setEvents: function (t) {
+						var i = "touchstart" === t ? ["touchstart", "touchend", "touchmove"] : ["mousedown",
+							"mouseup", "mousemove"
+						];
+						this._events = {
+								pointerDown: i[0],
+								pointerUp: i[1],
+								pointerMove: i[2]
+							}, this._canvas.addEventListener(i[0], this._onPointerDown), this._canvas
+							.addEventListener(i[1], this._onPointerUp)
+					},
+					stop: function () {
+						return cancelAnimationFrame(this._raf), h.clearInstances(), this
+					},
+					start: function () {
+						var n, s = this;
+
+						function r(t) {
+							s._raf = requestAnimationFrame(r);
+							var i = (t - n) / s._fps,
+								e = 4 * i;
+							s._update(e, i, t)._render(), n = t
+						}
+						return this._raf = requestAnimationFrame(function (t) {
+							n = t, this._raf = requestAnimationFrame(r)
+						}), this
+					},
+					pause: function () {},
+					_update: function (t, i, e) {
+						var n = this._snake,
+							s = this._levelGenerator,
+							r = h.getCollider(n.getBoundingBox()),
+							o = n.getWidth();
+						if (snakeHalfWidth = o / 2, min = snakeHalfWidth, max = this._appWidth - o / 2, n.isAlive()) {
+							if (r)
+								if (r instanceof a) n.addValue(r.getValue()), s.setRefValue(n.getValue()), r
+									.stopRender();
+								else switch (r.getCollisionDirection()) {
+									case "left":
+										max = r.getPosition().x - o;
+										break;
+									case "right":
+										min = r.getPosition().x + r.getWidth();
+										break;
+									case "bottom":
+										t = 0, 6 <= this._ticksAmount && (this._ticksAmount = 0), 0 === this
+											._ticksAmount && (n.subtractValue(1), s.setRefValue(n.getValue()), r
+												.subtractValue(1), this._score++, this._onScoreChange(this
+												._score), r.isAlive() ? this._emitter.setColor(n.getRgbColor())
+												.position.copy(n.getCenter()) : (r.stopRender(), this._emitter
+													.setColor(r.getRgbColor()).position.copy(r.getCenter())), this
+												._emitter.emit(e, 40), n.isAlive() || this._onGameOver(this
+													._score)), this._ticksAmount++
+								}
+							n.getPosition().x = Math.min(Math.max(min, this._snakePosOnStart.x + this._pointerMove.x -
+								this._pointerStart.x), max), n.update(t), s.update(t, n.getValue()), h.update(t)
+						}
+						return this._emitter.update(t, i, e), this
+					},
+					_render: function () {
+						var t = this._ctx;
+						return t.clearRect(0, 0, this._appWidth, this._appHeight), h.render(t), this._snake.render(t),
+							this._emitter.render(t), this
+					}
+				}, o
+			}(App)
+	</script>
+	<script>
+		App.init(".game-svb")
+	</script>
+</body>
+
+</html>
